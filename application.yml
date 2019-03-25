@@ -28,13 +28,13 @@ application:
 endpoints:
   restart: enabled
 eureka:
-  password: password
   instance:
-    hostname: ${vcap.application.uris[0]:localhost}
-    nonSecurePort: 80
+    hostname: discovery
+    nonSecurePort: ${server.port:8888}
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.${PREFIX:}eureka.credentials.uri:http://user:${eureka.password:}@${PREFIX:}eureka.${application.domain:cfapps.io}}/eureka/
+      defaultZone: http://${eureka.host:discovery}:${eureka.port:8761}/eureka/
+  instance:
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
   ConnectTimeout: 3000
@@ -54,5 +54,5 @@ eureka:
     preferIpAddress: true
   client:
     serviceUrl:
-      defaultZone: http://${EUREKA_1_PORT_8761_TCP_ADDR:localhost}:8761/eureka/
+      defaultZone: http://${eureka.host:discovery}:${eureka.port:8761}/eureka/
 
