@@ -1,0 +1,19 @@
+info:
+  description: MSDAF Spring Cloud Config
+  url: https://gaesi.gitlab.io/msdaf/wiki
+
+---
+spring:
+  profiles: cloud
+service:
+  definition:
+    metadata:
+      uri: http://${spring.application.name}.${application.domain:cfapps.io}
+
+---
+spring:
+  profiles: development
+service:
+  definition:
+    metadata:
+      uri: http://teste
